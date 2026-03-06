@@ -76,7 +76,7 @@ Example JSON:
 
 Clone repository:
 
-git clone https://github.com/YOUR_USERNAME/docker-blog-platform.git
+git clone https://github.com/jatin1519/docker-blog-platform.git
 
 Go to project folder:
 
@@ -92,7 +92,7 @@ docker-compose up --build
 
 Open browser:
 
-http://localhost
+http://public-ip
 
 ---
 
