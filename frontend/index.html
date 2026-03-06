@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>My Blog Platform</title>
+
+<style>
+
+body{
+ font-family: 'Segoe UI', sans-serif;
+ background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+ margin:0;
+ color:white;
+}
+
+.header{
+ text-align:center;
+ padding:25px;
+ font-size:26px;
+ font-weight:bold;
+}
+
+.container{
+ width:600px;
+ margin:30px auto;
+}
+
+form{
+ background:#1e293b;
+ padding:25px;
+ border-radius:10px;
+ box-shadow:0 6px 20px rgba(0,0,0,0.4);
+}
+
+input, textarea{
+ width:100%;
+ padding:12px;
+ margin-top:12px;
+ border:none;
+ border-radius:6px;
+ background:#334155;
+ color:white;
+ font-size:14px;
+}
+
+input::placeholder,
+textarea::placeholder{
+ color:#cbd5f5;
+}
+
+button{
+ margin-top:15px;
+ padding:12px;
+ width:100%;
+ background:linear-gradient(135deg,#6366f1,#8b5cf6);
+ color:white;
+ border:none;
+ border-radius:6px;
+ font-size:15px;
+ cursor:pointer;
+}
+
+button:hover{
+ opacity:0.9;
+}
+
+.blog{
+ background:#1e293b;
+ padding:18px;
+ margin-top:20px;
+ border-radius:8px;
+ border-left:4px solid #8b5cf6;
+ box-shadow:0 3px 10px rgba(0,0,0,0.3);
+}
+
+.blog h3{
+ margin:0;
+ color:#a5b4fc;
+}
+
+.blog p{
+ color:#e2e8f0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+My Blog Platform
+</div>
+
+<div class="container">
+
+<form id="blogForm">
+
+<input id="title" placeholder="Blog Title">
+
+<textarea id="content" placeholder="Write your blog"></textarea>
+
+<button>Add Blog</button>
+
+</form>
+
+<div id="blogs"></div>
+
+</div>
+
+<script>
+
+async function loadBlogs(){
+
+ const res = await fetch("/api/blogs");
+ const data = await res.json();
+
+ document.getElementById("blogs").innerHTML =
+  data.map(b=>`
+   <div class="blog">
+   <h3>${b.title}</h3>
+   <p>${b.content}</p>
+   </div>
+  `).join("");
+
+}
+
+document.getElementById("blogForm").onsubmit = async (e)=>{
+
+ e.preventDefault();
+
+ await fetch("/api/blogs",{
+  method:"POST",
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+   title:title.value,
+   content:content.value
+  })
+ });
+
+ title.value="";
+ content.value="";
+
+ loadBlogs();
+
+};
+
+loadBlogs();
+
+</script>
+
+</body>
+</html>
