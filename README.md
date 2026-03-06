@@ -1,4 +1,4 @@
-# Docker Blog Platform
+#  Blog Platform
 
 A simple blog platform built using Docker Compose with multiple containers.  
 The application allows users to create and view blog posts.
